@@ -12,11 +12,9 @@
     const navEntries = performance.getEntriesByType("navigation");
 
     if (navEntries.length > 0 && navEntries[0].type === "reload") {
+      
 
-      // GitHub Pages 기준
-      // /저장소명/없는페이지 로 이동
-
-      location.href = "/저장소명/없는페이지";
+      location.href = "/sample/1";
     }
   </script>
 
