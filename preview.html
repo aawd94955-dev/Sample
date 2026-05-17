@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>글 저장 사이트</title>
+</head>
+<body>
+
+  <script>
+    // 새로고침 감지
+    const navEntries = performance.getEntriesByType("navigation");
+
+    if (navEntries.length > 0 && navEntries[0].type === "reload") {
+
+      // GitHub Pages 기준
+      // /저장소명/없는페이지 로 이동
+
+      location.href = "/저장소명/없는페이지";
+    }
+  </script>
+
+  <h1>글 저장 사이트</h1>
+
+  <input type="text" id="title" placeholder="제목">
+  <br><br>
+
+  <textarea id="content" placeholder="내용"></textarea>
+  <br><br>
+
+  <button id="saveBtn">저장</button>
+  <button id="loadBtn">불러오기</button>
+
+  <hr>
+
+  <h2>저장된 글</h2>
+
+  <div id="result"></div>
+
+  <script>
+    const titleInput = document.getElementById("title");
+    const contentInput = document.getElementById("content");
+    const result = document.getElementById("result");
+
+    // 저장
+    document.getElementById("saveBtn").addEventListener("click", () => {
+
+      const post = {
+        title: titleInput.value,
+        content: contentInput.value
+      };
+
+      localStorage.setItem("post", JSON.stringify(post));
+
+      alert("저장 완료");
+    });
+
+    // 불러오기
+    document.getElementById("loadBtn").addEventListener("click", () => {
+
+      const saved = localStorage.getItem("post");
+
+      if (!saved) {
+        result.innerHTML = "저장된 글 없음";
+        return;
+      }
+
+      const post = JSON.parse(saved);
+
+      result.innerHTML = `
+        <h3>${post.title}</h3>
+        <p>${post.content}</p>
+      `;
+    });
+  </script>
+
+</body>
+</html>
